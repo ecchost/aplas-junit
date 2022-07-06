@@ -148,7 +148,7 @@
                             <div><iframe id="content"></iframe> </div -->
 
                             <div class="col-md-12 ">
-                                <div data-pym-src="https://www.jdoodle.com/embed/v0/4TAb"></div>
+                                <!-- <div data-pym-src="https://www.jdoodle.com/embed/v0/4TAb"></div> -->
                             </div>
                             <div class="col-lg-12 ">
 
@@ -198,26 +198,42 @@
                                     <tr>
                                         <td>
                                             <?php $outjava = shell_exec('java -version ' . ' 2>&1');
-                                            echo '<pre>' . $outjava . '</pre>'; 
-                                            
+                                            echo '<pre>' . $outjava . '</pre>';
                                             ?>
                                         <td>
+                                        <td></td>
 
                                     </tr>
                                     <tr>
                                         <td>2.</td>
                                         <td>JUnit Testing</td>
-                                        <td><span class="badge bg-warning">Failed</span></td>
+                                        <td>
+                                        <span class="badge bg-warning">Failed
+                                            
+
+                                        </span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
                                         <?php
-                                        $commandjava = escapeshellarg('org.junit.runner.JUnitCore') . ' ';
-                                        $javashout1 = shell_exec("java -cp " . "'../datajava/junit-4.12.jar'" . ";" . "'../datajava/hamcrest-core-1.3.jar'".";. $commandjava "."'../datajava/JUnitHelloWorldTest.class'" . " 2>&1");
+                                        $javashout1 = shell_exec("cd datajava && java -cp junit-4.12.jar;hamcrest-core-1.3.jar;. org.junit.runner.JUnitCore JUnitHelloWorldTest");
                                         echo '<pre>' . $javashout1 . '</pre>';
 
+                                        $string = "There was 1 failure:";
+                                                if(strpos($string, $javashout1) === FALSE) {
+                                                    // javashout1 is not found in string
+                                                    echo 'success';
+                                                }
+                                                
+                                                if (strpos($string, $javashout1) !== FALSE) {
+                                                    // javashout1 is found in string
+                                                    echo 'failed';
+                                                }
                                         ?>
                                         </td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
